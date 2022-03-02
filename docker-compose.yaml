@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  database:
+     image: mysql
+     volumes: 
+       - wordpress-data:/var/lib/mysql
+     environment:
+       MYSQL_ROOT_PASSWORD: 'admin@123'
+       MYSQL_DATABASE: 'wordpress'
+       MYSQL_USER: 'wordpress'
+       MYSQL_PASSWORD: 'wordpress'
+  wordpress:
+    depends_on:
+      - database
+    image: wordpress 
+    ports: 
+      - "8080:80"
+    environment:
+      WORDPRESS_DB_HOST: database:3306
+      WORDPRESS_DB_USER: 'wordpress'
+      WORDPRESS_DB_PASSWORD: 'wordpress'
+volumes:
+  wordpress-data:        
